@@ -34,6 +34,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const musicText = document.getElementById("musicText");
     const stepDots = document.querySelectorAll(".step-dot");
 
+   // Try to autoplay romantic music ❤️
+if (music) {
+        music.volume = 0.5;
+
+        // Attempt to start music when the page opens
+        music.play().catch(() => {
+            console.log("Autoplay blocked; waiting for the first interaction.");
+        });
+
+        // Start music after the visitor's first interaction if blocked
+        const startMusicOnInteraction = () => {
+            if (music.paused) {
+                music.play().catch(() => {});
+            }
+        };
+
+        document.addEventListener("pointerdown", startMusicOnInteraction, { once: true });
+        document.addEventListener("keydown", startMusicOnInteraction, { once: true });
+    }
+
     // Initialize earliest selectable date as today
     const now = new Date();
     const todayFormatted = now.toISOString().split("T")[0];
