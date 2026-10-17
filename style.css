@@ -1,0 +1,787 @@
+/* ==========================================================================
+   A DATE WITH KANNA ❤️ - 100VH PURE ZERO-SCROLL RESPONSIVE STYLES
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+
+:root {
+    --primary: #ff2d6c;
+    --primary-glow: rgba(255, 45, 108, 0.45);
+    --primary-dark: #d81159;
+    --secondary: #8b00ff;
+    --accent-gold: #ffd166;
+    --bg-dark: #0f0518;
+    --card-bg: rgba(255, 255, 255, 0.10);
+    --card-border: rgba(255, 255, 255, 0.22);
+    --text-pure: #ffffff;
+    --text-soft: #fce7f3;
+    --text-muted: #e2b4cb;
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-sm: 10px;
+    --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-romantic: 'Caveat', cursive;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* STRICT ZERO-SCROLL GUARANTEE (100VH / 100DVH ON ALL DEVICES) */
+html, body {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+    font-family: var(--font-main);
+    color: var(--text-pure);
+    background-color: var(--bg-dark);
+    overflow: hidden !important;
+    position: fixed;
+    inset: 0;
+    touch-action: manipulation;
+}
+
+/* ==========================================================================
+   DYNAMIC ROMANTIC BACKGROUND & PARTICLES
+   ========================================================================== */
+
+.ambient-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(circle at 15% 25%, #4a0d33 0%, transparent 45%),
+                radial-gradient(circle at 85% 75%, #35084a 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, #1f0322 0%, #0c0213 100%);
+    overflow: hidden;
+}
+
+.ambient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    animation: orbFloat 14s infinite alternate ease-in-out;
+    pointer-events: none;
+}
+
+.ambient-orb-1 {
+    width: 320px;
+    height: 320px;
+    background: linear-gradient(135deg, #ff2a6d, #ff5e62);
+    top: 5%;
+    left: -10%;
+}
+
+.ambient-orb-2 {
+    width: 380px;
+    height: 380px;
+    background: linear-gradient(135deg, #7928ca, #ff0080);
+    bottom: -10%;
+    right: -10%;
+    animation-delay: -5s;
+}
+
+.ambient-orb-3 {
+    width: 220px;
+    height: 220px;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    top: 45%;
+    right: 25%;
+    opacity: 0.3;
+}
+
+@keyframes orbFloat {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -20px) scale(1.05); }
+    100% { transform: translate(-25px, 30px) scale(0.95); }
+}
+
+#particleCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   COMPACT FLOATING MUSIC PLAYER
+   ========================================================================== */
+
+.music-widget {
+    position: fixed;
+    top: clamp(8px, 1.8vh, 16px);
+    right: clamp(10px, 2.5vw, 18px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--text-pure);
+    font-size: 11.5px;
+    font-weight: 600;
+    user-select: none;
+}
+
+.music-widget:hover {
+    background: rgba(255, 255, 255, 0.22);
+    transform: scale(1.03);
+}
+
+.music-visualizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 2.5px;
+    height: 13px;
+    width: 15px;
+}
+
+.music-visualizer .bar {
+    width: 2.5px;
+    background: #ff548e;
+    border-radius: 2px;
+    height: 3px;
+    transition: height 0.2s ease;
+}
+
+.music-widget.playing .music-visualizer .bar:nth-child(1) { animation: barBounce 1s infinite ease-in-out; }
+.music-widget.playing .music-visualizer .bar:nth-child(2) { animation: barBounce 0.8s infinite ease-in-out 0.2s; }
+.music-widget.playing .music-visualizer .bar:nth-child(3) { animation: barBounce 1.2s infinite ease-in-out 0.4s; }
+.music-widget.playing .music-visualizer .bar:nth-child(4) { animation: barBounce 0.9s infinite ease-in-out 0.1s; }
+
+@keyframes barBounce {
+    0%, 100% { height: 3px; }
+    50% { height: 13px; }
+}
+
+/* ==========================================================================
+   VIEWPORT WRAPPER & RESPONSIVE CARD CONTAINER
+   ========================================================================== */
+
+.page-wrapper {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: clamp(10px, 2vh, 20px) clamp(10px, 3vw, 18px);
+    overflow: hidden !important;
+}
+
+.progress-tracker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: clamp(6px, 1.5vh, 12px);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    flex-shrink: 0;
+}
+
+.step-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    transition: var(--transition);
+}
+
+.step-dot.active {
+    background: var(--primary);
+    transform: scale(1.3);
+    box-shadow: 0 0 10px var(--primary);
+}
+
+.step-dot.completed {
+    background: #ff758c;
+}
+
+.card-container {
+    width: 100%;
+    max-width: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 1;
+    overflow: visible;
+}
+
+.card {
+    position: relative;
+    width: 100%;
+    padding: clamp(16px, 2.6vh, 26px) clamp(14px, 3.2vw, 24px);
+    background: var(--card-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 18px 45px -8px rgba(0, 0, 0, 0.5),
+                0 0 25px -4px var(--primary-glow);
+    text-align: center;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+    animation: cardAppear 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: visible;
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY (FLUID & COMPACT)
+   ========================================================================== */
+
+.badge-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: rgba(255, 45, 108, 0.18);
+    border: 1px solid rgba(255, 75, 139, 0.4);
+    color: #ff94b9;
+    padding: 3px 10px;
+    border-radius: 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: clamp(6px, 1.2vh, 10px);
+    align-self: center;
+}
+
+h1 {
+    font-size: clamp(19px, 3.2vh, 26px);
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: clamp(4px, 1vh, 8px);
+    letter-spacing: -0.4px;
+    background: linear-gradient(135deg, #ffffff 40%, #ffd4e5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 14px rgba(255, 45, 108, 0.3);
+}
+
+.romantic-script {
+    font-family: var(--font-romantic);
+    font-size: clamp(20px, 3.2vh, 26px);
+    color: #ff85a2;
+    display: block;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: clamp(15px, 2.3vh, 18px);
+    font-weight: 700;
+    color: #ffb8d2;
+    margin: 8px 0 6px;
+}
+
+p.subtitle {
+    font-size: clamp(12.5px, 1.9vh, 14.5px);
+    color: var(--text-soft);
+    line-height: 1.45;
+    margin-bottom: clamp(8px, 1.6vh, 14px);
+}
+
+/* ==========================================================================
+   HERO AVATAR
+   ========================================================================== */
+
+.hero-avatar {
+    width: clamp(52px, 8.5vh, 68px);
+    height: clamp(52px, 8.5vh, 68px);
+    margin: 0 auto clamp(6px, 1.3vh, 12px);
+    background: radial-gradient(circle, rgba(255, 45, 108, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(28px, 4.5vh, 38px);
+    position: relative;
+    animation: avatarPulse 3s infinite ease-in-out;
+}
+
+.hero-avatar::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 1.5px dashed rgba(255, 105, 180, 0.5);
+    border-radius: 50%;
+    animation: spinSlow 15s linear infinite;
+}
+
+@keyframes avatarPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+@keyframes spinSlow {
+    100% { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   INTERACTIVE BUTTONS
+   ========================================================================== */
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(8px, 1.8vw, 12px);
+    flex-wrap: wrap;
+    margin-top: clamp(8px, 1.8vh, 16px);
+    position: relative;
+}
+
+button {
+    font-family: var(--font-main);
+    padding: clamp(9px, 1.5vh, 12px) clamp(16px, 3.2vw, 24px);
+    border: none;
+    border-radius: 30px;
+    font-size: clamp(13px, 1.8vh, 15px);
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    position: relative;
+    outline: none;
+}
+
+.btn-yes {
+    background: linear-gradient(135deg, #ff2a6d 0%, #ff5e62 100%);
+    color: #ffffff;
+    box-shadow: 0 6px 20px var(--primary-glow);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    z-index: 2;
+}
+
+.btn-yes:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 8px 25px rgba(255, 42, 109, 0.6);
+}
+
+.btn-no {
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    user-select: none;
+    touch-action: manipulation;
+    position: relative;
+    z-index: 9999;
+    transition: left 0.38s cubic-bezier(0.18, 0.9, 0.28, 1), top 0.38s cubic-bezier(0.18, 0.9, 0.28, 1), transform 0.2s ease, background 0.2s ease;
+    will-change: left, top;
+}
+
+.btn-no:hover {
+    background: rgba(255, 255, 255, 0.28);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--text-soft);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.btn-whatsapp {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #ffffff;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
+    margin-top: clamp(8px, 1.4vh, 12px);
+    padding: clamp(10px, 1.6vh, 13px) 16px;
+}
+
+.btn-whatsapp:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.6);
+}
+
+/* ==========================================================================
+   INPUTS & FORM CONTROLS (PAGE 2 COMPACT)
+   ========================================================================== */
+
+.form-group {
+    text-align: left;
+    margin-bottom: clamp(6px, 1.4vh, 12px);
+}
+
+label.form-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: clamp(11.5px, 1.6vh, 13px);
+    font-weight: 700;
+    color: #ffd4e5;
+    margin-bottom: 4px;
+}
+
+.custom-input {
+    width: 100%;
+    padding: clamp(7px, 1.3vh, 11px) clamp(10px, 2vw, 14px);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-main);
+    font-size: clamp(13px, 1.8vh, 14.5px);
+    color: #ffffff;
+    outline: none;
+    transition: var(--transition);
+}
+
+.custom-input:focus {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: #ff548e;
+    box-shadow: 0 0 12px rgba(255, 84, 142, 0.4);
+}
+
+.preset-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+}
+
+.preset-chip {
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.09);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    font-size: clamp(11px, 1.5vh, 12px);
+    font-weight: 600;
+    color: var(--text-soft);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.preset-chip:hover, .preset-chip.active {
+    background: rgba(255, 45, 108, 0.28);
+    border-color: #ff548e;
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   FOOD CARDS GRID (PAGE 3 MULTI-SELECT COMPACT)
+   ========================================================================== */
+
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(5px, 1vh, 8px);
+    margin: clamp(6px, 1.3vh, 12px) 0 clamp(8px, 1.5vh, 14px);
+}
+
+.food-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: clamp(6px, 1.2vw, 10px);
+    padding: clamp(6px, 1.2vh, 9px) clamp(8px, 1.6vw, 12px);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1.5px solid rgba(255, 255, 255, 0.16);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-align: left;
+    transition: var(--transition);
+    user-select: none;
+}
+
+.food-card:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.food-card input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.food-card.selected {
+    background: linear-gradient(135deg, rgba(255, 42, 109, 0.28) 0%, rgba(121, 40, 202, 0.28) 100%);
+    border-color: #ff2a6d;
+    box-shadow: 0 3px 14px rgba(255, 42, 109, 0.35);
+}
+
+.food-icon {
+    font-size: clamp(20px, 3vh, 24px);
+    flex-shrink: 0;
+}
+
+.food-details {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.food-title {
+    font-size: clamp(12px, 1.8vh, 13.5px);
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.food-desc {
+    font-size: clamp(9.5px, 1.4vh, 11px);
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.food-check-indicator {
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: transparent;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.food-card.selected .food-check-indicator {
+    background: #ff2a6d;
+    border-color: #ff2a6d;
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   DATE TICKET / BOARDING PASS (PAGE 4 COMPACT)
+   ========================================================================== */
+
+.ticket-wrapper {
+    position: relative;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    padding: clamp(10px, 1.8vh, 16px) clamp(12px, 2.4vw, 18px);
+    margin: clamp(6px, 1.4vh, 12px) 0;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+.ticket-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.25);
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+}
+
+.ticket-brand {
+    font-weight: 800;
+    font-size: clamp(12px, 1.7vh, 14px);
+    color: #ff85a2;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.ticket-vip {
+    background: var(--accent-gold);
+    color: #4a0d0d;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 6px;
+}
+
+.ticket-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: clamp(4px, 1vh, 8px);
+    text-align: left;
+}
+
+.ticket-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.ticket-value {
+    font-size: clamp(12px, 1.8vh, 13.5px);
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.ticket-barcode {
+    margin-top: clamp(6px, 1.2vh, 10px);
+    padding-top: clamp(4px, 1vh, 8px);
+    border-top: 1px dashed rgba(255, 255, 255, 0.25);
+    font-size: clamp(13px, 2vh, 17px);
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: monospace;
+}
+
+/* ==========================================================================
+   LOVE LETTER & CONTRACT (PAGE 5 COMPACT)
+   ========================================================================== */
+
+.letter-box {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: var(--radius-md);
+    padding: clamp(10px, 1.8vh, 16px) clamp(12px, 2.4vw, 18px);
+    margin: clamp(6px, 1.2vh, 10px) 0;
+    text-align: left;
+    position: relative;
+}
+
+.letter-wax-seal {
+    position: absolute;
+    top: -14px;
+    right: 16px;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #d81159, #8b0000);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.contract-card {
+    background: rgba(255, 215, 0, 0.08);
+    border: 1px dashed rgba(255, 215, 0, 0.35);
+    border-radius: var(--radius-sm);
+    padding: clamp(6px, 1.2vh, 10px);
+    margin-top: clamp(4px, 1vh, 8px);
+}
+
+.contract-title {
+    color: var(--accent-gold);
+    font-size: clamp(11.5px, 1.6vh, 13px);
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.contract-text {
+    font-size: clamp(11px, 1.5vh, 12.5px);
+    line-height: 1.4;
+    color: #f7e6c4;
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   FLOATING HEARTS & TOAST
+   ========================================================================== */
+
+.floating-heart {
+    position: fixed;
+    bottom: -60px;
+    pointer-events: none;
+    z-index: 2;
+    animation: floatUp linear forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
+    10% { opacity: 0.9; }
+    90% { opacity: 0.8; }
+    100% { transform: translateY(-115vh) rotate(360deg) scale(1.2); opacity: 0; }
+}
+
+.toast-container {
+    position: fixed;
+    bottom: clamp(10px, 2vh, 20px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+}
+
+.toast {
+    background: rgba(20, 6, 28, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 45, 108, 0.5);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 15px var(--primary-glow);
+    color: #ffffff;
+    padding: 8px 18px;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    animation: toastPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes toastPop {
+    from { opacity: 0; transform: translateY(15px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}

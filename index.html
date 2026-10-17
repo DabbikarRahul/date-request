@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Go on a Date with Me, Kanna? ❤️</title>
+    <meta name="description" content="A romantic, interactive date invitation for Kanna with custom date, time, and food choices!">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Ambient Romantic Glowing Background -->
+    <div class="ambient-bg" aria-hidden="true">
+        <div class="ambient-orb ambient-orb-1"></div>
+        <div class="ambient-orb ambient-orb-2"></div>
+        <div class="ambient-orb ambient-orb-3"></div>
+        <canvas id="particleCanvas"></canvas>
+    </div>
+
+    <!-- Background Music Audio Source -->
+    <audio id="loveMusic" loop preload="auto">
+        <source src="romantic-music.mp3" type="audio/mpeg">
+        <source src="(256k) - Copy.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Floating Romantic Music Player Capsule -->
+    <div class="music-widget" id="musicWidget" title="Click to play / pause romantic music">
+        <div class="music-visualizer" aria-hidden="true">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <span id="musicText">Play Music 🎵</span>
+    </div>
+
+    <!-- Main Interactive Content Wrapper -->
+    <main class="page-wrapper">
+
+        <!-- Progress Steps -->
+        <nav class="progress-tracker" aria-label="Invitation Progress">
+            <div class="step-dot active" title="Step 1: The Question"></div>
+            <div class="step-dot" title="Step 2: Pick Date & Time"></div>
+            <div class="step-dot" title="Step 3: Food Menu"></div>
+            <div class="step-dot" title="Step 4: Date Ticket"></div>
+            <div class="step-dot" title="Step 5: The Agreement"></div>
+        </nav>
+
+        <div class="card-container">
+
+            <!-- ==========================================
+                 PAGE 1: THE BIG QUESTION
+                 ========================================== -->
+            <section class="card" id="page1" aria-labelledby="heading-page1">
+                <div class="badge-tag">✨ Special Invitation ✨</div>
+
+                <div class="hero-avatar" aria-hidden="true">
+                    💖
+                </div>
+
+                <h1 id="heading-page1">
+                    Will You Go on a Date with Me, Kanna? ❤️
+                </h1>
+                <span class="romantic-script">A special question from Rahul</span>
+
+                <p class="subtitle" style="margin-top: 14px;">
+                    Hey my favorite person! 🥰<br>
+                    I have a dreamy, magical date planned just for us.<br>
+                    Will you make me the happiest person and say YES? 💕
+                </p>
+
+                <div class="button-group">
+                    <button class="btn-yes" id="yesButton" type="button">
+                        YES, OF COURSE! ❤️
+                    </button>
+                    <button class="btn-no" id="noButton" type="button">
+                        NO 😜
+                    </button>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 PAGE 2: DATE & TIME SELECTION
+                 ========================================== -->
+            <section class="card hidden" id="page2" aria-labelledby="heading-page2">
+                <div class="badge-tag">📅 STEP 2 OF 5</div>
+
+                <h1 id="heading-page2">Our Special Date 💖</h1>
+                <p class="subtitle">Choose the perfect date and time for us, Kanna! 🥰</p>
+
+                <!-- Quick Date Presets -->
+                <div class="form-group">
+                    <label class="form-label">✨ Quick Day Selection</label>
+                    <div class="preset-chips">
+                        <span class="preset-chip date-preset active" data-days="1">Tomorrow 🌅</span>
+                        <span class="preset-chip date-preset" data-days="2">This Weekend ✨</span>
+                        <span class="preset-chip date-preset" data-days="3">In 3 Days 🌸</span>
+                    </div>
+                </div>
+
+                <!-- Custom Date Input -->
+                <div class="form-group">
+                    <label for="dateInput" class="form-label">📅 Select Date</label>
+                    <input type="date" id="dateInput" class="custom-input">
+                </div>
+
+                <!-- Quick Time Presets -->
+                <div class="form-group">
+                    <label class="form-label">⏰ Preferred Vibe</label>
+                    <div class="preset-chips">
+                        <span class="preset-chip time-preset" data-time="13:30">Lunch (1:30 PM) ☀️</span>
+                        <span class="preset-chip time-preset active" data-time="19:30">Dinner (7:30 PM) 🍷</span>
+                        <span class="preset-chip time-preset" data-time="20:30">Late Evening (8:30 PM) 🌙</span>
+                    </div>
+                </div>
+
+                <!-- Custom Time Input -->
+                <div class="form-group">
+                    <label for="timeInput" class="form-label">⏰ Exact Time</label>
+                    <input type="time" id="timeInput" class="custom-input">
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-secondary" type="button" onclick="showPage('page1')">
+                        ← Back
+                    </button>
+                    <button class="btn-yes" id="dateNext" type="button">
+                        Next: Choose Food 🍗❤️
+                    </button>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 PAGE 3: FOOD SELECTION
+                 ========================================== -->
+            <section class="card hidden" id="page3" aria-labelledby="heading-page3">
+                <div class="badge-tag">🍽️ STEP 3 OF 5</div>
+
+                <h1 id="heading-page3">Choose Our Feast 🍗❤️</h1>
+                <p class="subtitle">What would you love to eat with Rahul? Pick your favorites! 😍</p>
+
+                <div class="food-grid">
+                    <!-- Beer -->
+                    <label class="food-card">
+                        <input type="checkbox" value="Chilled Beer 🍺">
+                        <span class="food-icon">🍺</span>
+                        <div class="food-details">
+                            <span class="food-title">Chilled Beer</span>
+                            <span class="food-desc">Cold & refreshing</span>
+                        </div>
+                        <span class="food-check-indicator" aria-hidden="true"></span>
+                    </label>
+
+                    <!-- Egg Rice -->
+                    <label class="food-card selected">
+                        <input type="checkbox" value="Egg Rice 🍳" checked>
+                        <span class="food-icon">🍳</span>
+                        <div class="food-details">
+                            <span class="food-title">Egg Rice</span>
+                            <span class="food-desc">Comfort & delicious</span>
+                        </div>
+                        <span class="food-check-indicator" aria-hidden="true">✓</span>
+                    </label>
+
+                    <!-- Chicken Rice -->
+                    <label class="food-card selected">
+                        <input type="checkbox" value="Chicken Rice 🍗" checked>
+                        <span class="food-icon">🍗</span>
+                        <div class="food-details">
+                            <span class="food-title">Chicken Rice</span>
+                            <span class="food-desc">Rahul's top pick</span>
+                        </div>
+                        <span class="food-check-indicator" aria-hidden="true">✓</span>
+                    </label>
+
+                    <!-- Egg Noodles -->
+                    <label class="food-card">
+                        <input type="checkbox" value="Egg Noodles 🍜">
+                        <span class="food-icon">🍜</span>
+                        <div class="food-details">
+                            <span class="food-title">Egg Noodles</span>
+                            <span class="food-desc">Hot, slurpy goodness</span>
+                        </div>
+                        <span class="food-check-indicator" aria-hidden="true"></span>
+                    </label>
+
+                    <!-- Chicken Noodles -->
+                    <label class="food-card">
+                        <input type="checkbox" value="Chicken Noodles 🍝">
+                        <span class="food-icon">🍝</span>
+                        <div class="food-details">
+                            <span class="food-title">Chicken Noodles</span>
+                            <span class="food-desc">Spicy & savory</span>
+                        </div>
+                        <span class="food-check-indicator" aria-hidden="true"></span>
+                    </label>
+
+                    <!-- Sweet Dessert -->
+                    <label class="food-card selected">
+                        <input type="checkbox" value="Sweet Dessert 🍨" checked>
+                        <span class="food-icon">🍨</span>
+                        <div class="food-details">
+                            <span class="food-title">Sweet Dessert</span>
+                            <span class="food-desc">Ice cream & romance</span>
+                        </div>
+                        <span class="food-check-indicator" aria-hidden="true">✓</span>
+                    </label>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-secondary" type="button" onclick="showPage('page2')">
+                        ← Back
+                    </button>
+                    <button class="btn-yes" id="foodNext" type="button">
+                        Confirm Food Menu ❤️
+                    </button>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 PAGE 4: VIP DATE BOARDING PASS / TICKET
+                 ========================================== -->
+            <section class="card hidden" id="page4" aria-labelledby="heading-page4">
+                <div class="badge-tag">🎟️ STEP 4 OF 5</div>
+
+                <h1 id="heading-page4">🎉 Congratulations! ❤️</h1>
+                <p class="subtitle">Your official VIP Date Boarding Pass is ready! 💖</p>
+
+                <div class="ticket-wrapper">
+                    <div class="ticket-header">
+                        <span class="ticket-brand">KANNA & RAHUL DATE NIGHT</span>
+                        <span class="ticket-vip">VIP ACCESS 💖</span>
+                    </div>
+
+                    <div class="ticket-row">
+                        <div>
+                            <div class="ticket-label">Guest of Honor</div>
+                            <div class="ticket-value">Kanna (The Prettiest Girl) 🥰</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="ticket-label">Host & Date</div>
+                            <div class="ticket-value">Rahul ❤️</div>
+                        </div>
+                    </div>
+
+                    <div class="ticket-row">
+                        <div>
+                            <div class="ticket-label">Date</div>
+                            <div class="ticket-value" id="ticketDate">Saturday, Oct 18, 2026</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="ticket-label">Time</div>
+                            <div class="ticket-value" id="ticketTime">7:30 PM</div>
+                        </div>
+                    </div>
+
+                    <div class="ticket-row" style="margin-bottom: 0;">
+                        <div>
+                            <div class="ticket-label">The Romantic Menu</div>
+                            <div class="ticket-value" id="ticketFood" style="font-size: 13.5px; color: #ffd4e5;">
+                                Chicken Rice, Egg Rice, Sweet Dessert
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ticket-barcode" aria-hidden="true">
+                        ||| | |||| | ||| |||| | ||||| | ||
+                    </div>
+                </div>
+
+                <p style="font-size: 14.5px; color: #ffb8d2; margin-bottom: 15px;">
+                    One step closer to an unforgettable evening together! 🥰💕
+                </p>
+
+                <div class="button-group">
+                    <button class="btn-secondary" type="button" onclick="showPage('page3')">
+                        ← Edit Food
+                    </button>
+                    <button class="btn-yes" id="confirmDate" type="button">
+                        View Sweet Agreement 💌
+                    </button>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 PAGE 5: LOVE AGREEMENT & WHATSAPP
+                 ========================================== -->
+            <section class="card hidden" id="page5" aria-labelledby="heading-page5">
+                <div class="badge-tag">💌 STEP 5 OF 5 • THE CONTRACT</div>
+
+                <h1 id="heading-page5">💌 A Special Message for You</h1>
+
+                <div class="letter-box">
+                    <div class="letter-wax-seal" aria-hidden="true">❤️</div>
+
+                    <h2>Dear Rahul ❤️</h2>
+
+                    <p style="font-size: 18px; font-weight: 800; color: #ff548e; margin-bottom: 8px;">
+                        💖 YES, RAHUL! A MILLION TIMES YES! 💖
+                    </p>
+
+                    <p style="margin-bottom: 12px;">
+                        I happily accept your romantic date plan! 🥰 I can't wait for our special time together. Let's make the sweetest memories! ❤️😘
+                    </p>
+
+                    <div class="contract-card">
+                        <div class="contract-title">
+                            ⚠️ One Little Official Rule! 😂
+                        </div>
+                        <p class="contract-text">
+                            If I don't show up for our planned date, I owe Rahul a playful fine of <strong>₹2,000! 💸</strong>
+                        </p>
+                        <p class="contract-text" style="margin-top: 6px;">
+                            Just kidding! The only real rule is: <strong>Don't break Rahul's heart! ❤️</strong>
+                        </p>
+                        <p class="contract-text" style="margin-top: 10px; font-size: 12px; opacity: 0.9;">
+                            📅 <strong>Plan:</strong> <span id="contractDateDetail">Tomorrow at 7:30 PM</span><br>
+                            🍽️ <strong>Menu:</strong> <span id="contractFoodDetail">Chicken Rice, Egg Rice</span>
+                        </p>
+                    </div>
+
+                    <h2 style="font-size: 19px; color: #ffffff; margin-top: 16px; margin-bottom: 0;">
+                        See You Soon, Rahul! 💕
+                    </h2>
+                </div>
+
+                <!-- WhatsApp Share Button -->
+                <button class="btn-whatsapp" id="whatsappShareBtn" type="button">
+                    📲 Send Confirmation to Rahul via WhatsApp
+                </button>
+
+                <div class="button-group" style="margin-top: 12px;">
+                    <button class="btn-secondary" id="copyPlanBtn" type="button" style="font-size: 14px;">
+                        📋 Copy Plan Details
+                    </button>
+                    <button class="btn-secondary" type="button" onclick="showPage('page1')" style="font-size: 14px;">
+                        🔄 Replay from Start
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Interactive Script -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
